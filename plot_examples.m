@@ -1,9 +1,5 @@
 
-% Change the path wrt the location of files
-addpath('/Users/remi_juge/Documents/analyse_spectrale/BE/');
-load('Supelec_2012_SIR_Spectral_Analysis_EA_v001');
-% Add the path to the toolbox and subdirs
-addpath('/Applications/MATLAB_R2017b.app');
+configue;
 
 % FLAG for: pre-window and pre-filter (1) or not (0)
 f_PreWindow = 1;
