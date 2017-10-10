@@ -1,4 +1,4 @@
-configue;
+config;
 
 % FLAG for: pre-window and pre-filter (1) or not (0)
 f_PreWindow = 1;
