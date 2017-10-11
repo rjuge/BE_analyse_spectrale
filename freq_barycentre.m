@@ -67,5 +67,4 @@ for i = 1:n
 end
 
 
-%spectro = stft2(abs_FFT
 
