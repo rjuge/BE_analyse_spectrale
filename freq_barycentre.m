@@ -27,7 +27,32 @@ amp_square = abs_FFT.^2;
 den = sum(amp_square,1);
 f_bar = amp_square.'*abs_Axis./den.';
 
-%variance pondérée
+%%variance pondérée de f autour de fbar
+
+% vecteur proche f_approx
+
+%f_mod le reste de la div euclidienne de fbar par la taille d'un intervalle
+f_mod = (f_bar - mod(f_bar,1/4096))
+
+    if f_mod >0.5/4096 % si c'est supérieur à la moitié d'un intervalle arrondi au dessus
+        f_approx = f_bar - mod(f_bar,1/4096)+1/4096
+    else % sinon arrondi en dessous
+        f_approx = f_bar -mod(f_bar,1/4096)
+    end
+
+% on récupère le vecteur des indices
+
+f_bar_ind= f_approx/(1/4096)
+
+% on a chaque indice correspondant à la fréquence barycentrique pour chaque
+% signal, on en déduit un vecteur de variance à 4 composantes
+
+for i = 1:4
+   
+    var_f(i) = sum((abs_FFT(:,i)-abs_FFT(f_bar_ind(i)).^2))/length(abs_Axis)
+
+end 
+
 
 
 h1 = figure(1);clf
@@ -42,5 +67,5 @@ for i = 1:n
 end
 
 
-
+%spectro = stft2(abs_FFT
 
