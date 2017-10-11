@@ -11,7 +11,7 @@ f_PreFilter_PreWindow = 1;
 time_Sampling = 0.0000010000;
 freq_Sampling = 1/time_Sampling;
 
-n=4 % number of signals
+n=4; % number of signals
 
 % Choose one specific signal and set time axis
 index_Data_Demo = randi(1448,[1,n]); %choose randomly n signals
