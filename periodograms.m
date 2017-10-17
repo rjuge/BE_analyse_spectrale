@@ -27,8 +27,9 @@ for i = 1:n
     xlabel('Freq. (Hz)');ylabel('Amp. (dB)')
 end
 
-%Periodogram, TODO: Bartlett DSP estimate
-[pxb, fb] = periodogram(data_Demo,Window_Raised_Frac_Sine(data_Length),[],freq_Sampling,'onesided','psd');
+%Bartlett DSP estimate
+L = 256;
+[pxb, fb] = pbartlett(data_Demo, Window_Raised_Frac_Sine(L), [], freq_Sampling);
 for i = 1:n
     subplot(4,1,i+1)
     plot(fb/freq_Sampling, 10*log10(pxb))
