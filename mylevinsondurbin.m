@@ -45,8 +45,8 @@ interm3=interm2'*ff;
 interm=1.+aa(2:pp+1)*exp(interm3);
 mydsp = sigma2./(interm.*conj(interm));
 
-figure(1);
-clf;
+%figure(1);
+%clf;
 grid on;
 hold on;
 plot(ff,mydsp,'linewidth',2);
