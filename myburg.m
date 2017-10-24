@@ -72,7 +72,7 @@ hold on;
 plot(ff,mydsp,'linewidth',2);
 xlabel('frequency (in Hz)','fontsize',20);
 ylabel('magnitude','fontsize',20);
-xlim([-1000 1000]);
+%xlim([-1000 1000]);
 hold off;
 drawnow;
 
