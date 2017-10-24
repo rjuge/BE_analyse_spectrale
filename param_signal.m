@@ -18,19 +18,22 @@ data_Demo_Stft = data_Demo(1:f_Subsampling:end,:);
 data_Length = length(data_Demo_Stft);
 data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 
-p=15; % order of the AR algorithm
+p=4; % order of the AR algorithm
 % Voir méthodes de choix de p (vers page 335)
+
 for i =1:n
     figure(i);
     subplot(3,1,1);
-    mylevinsondurbin(data_Demo_Stft(:,i)', p, freq_Sampling)
+    [aa1, sigma1, ref1, ff1, mydsp1] = mylevinsondurbin(data_Demo_Stft(:,i)', p, freq_Sampling);
     hold on
     subplot(3,1,2);
-    myburg(data_Demo_Stft(:,i), p, freq_Sampling)
+    [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p, freq_Sampling);
     hold on
     subplot(3,1,3);
-    mymarple_matlab(data_Demo_Stft(:,i), p, freq_Sampling)
+    [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p, freq_Sampling);
 end
+
+
 % Test for the different AR algorithms
 %mylevinsondurbin(data_Demo_Stft(:,1)', p, freq_Sampling)
 %myburg(data_Demo_Stft(:,1), p, freq_Sampling)
