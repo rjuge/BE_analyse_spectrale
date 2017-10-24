@@ -270,13 +270,14 @@ interm3=interm2'*ff;
 interm=1.+aa(2:npp+1)*exp(interm3);
 mydsp = sigma2./(interm.*conj(interm));
 
-figure(1);
-clf;
+%figure(1);
+%clf;
 grid on;
 hold on;
 plot(ff,mydsp,'linewidth',2);
-xlabel('frequency (in Hz)','fontsize',20);
-ylabel('magnitude','fontsize',20);
+title('DSP obtenue avec Marple')
+xlabel('frequency (in Hz)');
+ylabel('magnitude');
 hold off;
 drawnow;
 

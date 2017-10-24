@@ -65,14 +65,15 @@ interm3=interm2'*ff;
 interm=1.+aa(2:pp+1)*exp(interm3);
 mydsp = sigma2./(interm.*conj(interm));
 
-figure(1);
-clf;
+%figure(1);
+%clf;
 grid on;
 hold on;
 plot(ff,mydsp,'linewidth',2);
-xlabel('frequency (in Hz)','fontsize',20);
-ylabel('magnitude','fontsize',20);
-xlim([-1000 1000]);
+title('DSP obtenue avec Burg')
+xlabel('frequency (in Hz)');
+ylabel('magnitude');
+%xlim([-1000 1000]);
 hold off;
 drawnow;
 
