@@ -1,6 +1,6 @@
 function [pxb,fb] = pbartlett(x, window, f, fs);
 
-if ~isreal(data) 
+if ~isreal(x) 
    error('Input data is complex')
 end
 

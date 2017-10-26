@@ -3,7 +3,7 @@
 config;
 
 % Test with only zero-level noise
-lst_Noise_Level = [0];
+lst_Noise_Level = [0, 5e-4];
 % Test with different additional zero-level noise
 %lst_Noise_Level = [0,1,2,4,8, 16, 32]*5e-4;
 
@@ -51,25 +51,20 @@ sample_Burst_Max = max(find(data_Demo_Time_Axis <= time_Burst_Max))-1;
     % Compute three max location (in frequency) add max amplitude
     [data_Demo_FFT_Max,data_Demo_FFT_Idx] = max(data_Demo_FFT);
     
-    % Compute freq bar on abs value of FFT (of filtered signal)
-    data_Demo_Filt_bar1 = sum(data_Demo_FFT_Axis.*(abs(data_Demo_FFT(:,3))).^1)/sum((abs(data_Demo_FFT(:,3))).^1);
-    
-    % Compute freq bar on square value of FFT (of filtered signal)
-    data_Demo_Filt_bar2 = sum(data_Demo_FFT_Axis.*(abs(data_Demo_FFT(:,3))).^2)/sum((abs(data_Demo_FFT(:,3))).^2);
-    
     % 5 features defined from one signal:
     % - freq max from FFT of raw signal
     % - freq max from FFT of windowed signal
     % - freq max from FFT of filtered signal
-    % - freq bar from abs FFT of filtered signal
-    % - freq bar from squared FFT of filtered signal
-    data_freq_values = [data_Demo_FFT_Axis(data_Demo_FFT_Idx);data_Demo_Filt_bar1;data_Demo_Filt_bar2];
-    
-    data_Demo_Filt_bar1_value = (mean((abs(data_Demo_FFT(:,3))).^1));
-    data_Demo_Filt_bar2_value = sqrt(mean((abs(data_Demo_FFT(:,3))).^2));
+    % - freq bar from abs FFT of raw signal
+    % - freq bar from squared FFT of raw signal
+    data_fmax_values = data_Demo_FFT_Axis(data_Demo_FFT_Idx);
+    data_Demo_Filt_bar1 = sum(data_Demo_FFT_Axis.*(abs(data_Demo_FFT(:,1))).^1)/sum((abs(data_Demo_FFT(:,1))).^1);
+    data_Demo_Filt_bar2 = sum(data_Demo_FFT_Axis.*(abs(data_Demo_FFT(:,1))).^2)/sum((abs(data_Demo_FFT(:,1))).^2);
     
     % Here we have 5 "amplitude" related to the 5 locations defined from one signal
-    data_Central_Value = [data_Demo_FFT_Max';data_Demo_Filt_bar1_value;data_Demo_Filt_bar2_value];
+    data_fmax_amp = data_Demo_FFT_Max';
+    data_Demo_Filt_bar1_value = (mean((abs(data_Demo_FFT(:,3))).^1));
+    data_Demo_Filt_bar2_value = sqrt(mean((abs(data_Demo_FFT(:,3))).^2));
     
     % Plot results
     figure(i_Noise_Level);clf
@@ -86,8 +81,10 @@ sample_Burst_Max = max(find(data_Demo_Time_Axis <= time_Burst_Max))-1;
     plot(data_Demo_FFT_Axis,data_Demo_FFT);axis tight;grid
     ylabel('Amplitude (au)');
     xlabel('Frequency (Hz)');
-    legend('Signal','Signal windowed','Signal filtered')
     % Plot the location of the five spectrum locations
-    h = plot(data_freq_values,data_Central_Value,'+');
+    h = plot(data_fmax_values,data_fmax_amp,'+','MarkerSize',12);
+    legend('Signal','Signal windowed','Signal filtered','freq max')
+    vline(data_Demo_Filt_bar1,'r','f_{bar1}')
+    vline(data_Demo_Filt_bar2,'r','f_{bar2}')
   end
   

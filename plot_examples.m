@@ -27,8 +27,7 @@ data_Demo_Time_Axis = time_Sampling*([1:data_Length]-1)';
 
 %plot raw signals
 h1 = figure(1);clf
-title(['Signals n°',num2str(index_Data_Demo(1)),' ',num2str(index_Data_Demo(2)),' ', num2str(index_Data_Demo(3)),' ',num2str(index_Data_Demo(4)) ]);
-n=length(index_Data_Demo)
+title(['Signals nï¿½',num2str(index_Data_Demo(1)),' ',num2str(index_Data_Demo(2)),' ', num2str(index_Data_Demo(3)),' ',num2str(index_Data_Demo(4)) ])n=length(index_Data_Demo)
 for i = 1:n
     subplot(4,1,i)
     xlabel('Time');ylabel('Amp.')
@@ -37,7 +36,7 @@ end
 
 %plot FFTRs of raw signals
 h2 = figure(2);
-h=title(['FFTR signals n°',num2str(index_Data_Demo(1)),' ',num2str(index_Data_Demo(2)),' ', num2str(index_Data_Demo(3)), ' ',num2str(index_Data_Demo(4)) ]);
+h=title(['FFTR signals nï¿½',num2str(index_Data_Demo(1)),' ',num2str(index_Data_Demo(2)),' ', num2str(index_Data_Demo(3)), ' ',num2str(index_Data_Demo(4)) ]);
 for i = 1:n
     subplot(4,1,i)
     plot(abs_Axis,20*log10(abs_FFT(:,i)))

@@ -25,34 +25,32 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 
 %Spectrogramme
 tfd = zeros(nfreq,data_Length,n);
-t = zeros(data_Length,n);
-f = zeros(nfreq,n);
 abs_TFD = zeros(nfreq/2+1, data_Length,n);
 abs_FFT = zeros(data_Length/2+1,n);
+abs_TFD_Max = zeros(1,n);
+abs_TFD_Idx = zeros(1,n);
+frequency_Idx = zeros(1,n);
+time_Idx = zeros(1,n);
+
+%compute STFT
+for i = 1:n
+  [tfd(:,:,i), t, f] = stft2(data_Demo_Stft(:,i), freq_Sampling/f_Subsampling, nfreq, decf);
+  abs_TFD(:,:,i) = abs(tfd(1:nfreq/2+1,:,i));
+  abs_TFD_tmp = abs_TFD(:,:,i);
+  [abs_TFD_Max(i),abs_TFD_Idx(i)] = max(abs_TFD_tmp(:));
+  [frequency_Idx(i),time_Idx(i)] = ind2sub(size(abs_TFD_tmp),abs_TFD_Idx(i));
+end
 
 f_red = f(nfreq/2-1:end);
-
-%compute STFT and FFT
-for i = 1:n
-  [tfd(:,:,i), t(:,i), f(:,i)] = stft2(data_Demo_Stft(:,i), freq_Sampling/f_Subsampling, nfreq, decf);
-  abs_TFD(:,:,i) = abs(tfd(1:nfreq/2+1,:,i));
-  [abs_FFT(:,i),abs_Axis] = FFTR(data_Demo_Stft(:,i),1/(freq_Sampling/f_Subsampling));
-end
 
 %plot STFTs
 h1 = figure(1);
 for i = 1:n
   subplot(4,1,i)
   hold on
-  h= imagesc(t(:,i),f_red,(flipud(abs_TFD(:,:,i)))); axis tight
+  h = imagesc(t,f_red,(flipud(abs_TFD(:,:,i)))); axis tight
+  plot(t(time_Idx(i)),f_red((end-frequency_Idx(i))),'or','MarkerSize',20) ;
   xlabel('Time');ylabel('Freq. (Hz)')
 end
 
-%plot FFTs
-h2 = figure(2);
-for i = 1:n
-    subplot(4,1,i)
-    plot(abs_Axis,20*log10(abs_FFT(:,i)))
-    hold on
-    xlabel('Freq. (Hz)');ylabel('Amp. (dB)')
-end
+

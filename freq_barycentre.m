@@ -22,31 +22,25 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 %FFTR of the raw signals
 [abs_FFT,abs_Axis]=FFTR(data_Demo);
 
-%frequence barycentrique, moyenne pondérée
-amp_square = abs_FFT.^2;
+%frequence barycentrique, moyenne pondï¿½rï¿½amp_square = abs_FFT.^2;
 den = sum(amp_square,1);
 f_bar = amp_square.'*abs_Axis./den.';
 
-%%variance pondérée de f autour de fbar
-
+%%variance pondï¿½rï¿½e de f autour de f
 % vecteur proche f_approx
 
 %f_mod le reste de la div euclidienne de fbar par la taille d'un intervalle
 f_mod = (f_bar - mod(f_bar,1/4096))
 
-    if f_mod >0.5/4096 % si c'est supérieur à la moitié d'un intervalle arrondi au dessus
-        f_approx = f_bar - mod(f_bar,1/4096)+1/4096
+    if f_mod >0.5/4096 % si c'est supï¿½rieur ï¿½ la moitiï¿½ d'un intervalle arrondi au d        f_approx = f_bar - mod(f_bar,1/4096)+1/4096
     else % sinon arrondi en dessous
         f_approx = f_bar -mod(f_bar,1/4096)
     end
 
-% on récupère le vecteur des indices
-
+% on rï¿½cupï¿½re le vecteur des indi
 f_bar_ind= f_approx/(1/4096)
 
-% on a chaque indice correspondant à la fréquence barycentrique pour chaque
-% signal, on en déduit un vecteur de variance à 4 composantes
-
+% on a chaque indice correspondant ï¿½ la frï¿½quence barycentrique pour cha% signal, on en dï¿½duit un vecteur de variance ï¿½ 4 composan
 for i = 1:4
    
     var_f(i) = sum((abs_FFT(:,i)-abs_FFT(f_bar_ind(i)).^2))/length(abs_Axis)

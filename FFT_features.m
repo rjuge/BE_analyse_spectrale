@@ -21,7 +21,7 @@ data_Length = length(data_Demo);
 data_Demo_Time_Axis = time_Sampling*([1:data_Length]-1)';
 
 %FFTR of the raw signals
-[abs_FFT,abs_Axis]=FFTR(data_Demo);
+[abs_FFT,abs_Axis]=FFTR(data_Demo, time_Sampling);
 % max freq values
 [abs_FFT_Value,abs_FFT_Index] = max(abs_FFT);
 
