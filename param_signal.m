@@ -146,3 +146,26 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % différents
 %
 
+p_arr = [2,4,8,16,32,64,128];
+noise_matrix = zeros(length(p_arr), 3,n);
+for j = 1:length(p_arr)
+    for i =1:n
+        figure(i);
+        subplot(3,1,1);
+        [aa1, sigma1, ref1, ff1, mydsp1] = mylevinsondurbin(data_Demo_Stft(:,i)', p_levinson, freq_Sampling);
+        noise_matrix(j,1,i) = sigma1;
+        hold on
+        subplot(3,1,2);
+        [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p_burg, freq_Sampling);
+        noise_matrix(j,2,i) = sigma2;
+        hold on
+        subplot(3,1,3);
+        [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p_marple, freq_Sampling);
+        noise_matrix(j,3,i) = sigma3;
+    end
+end
+
+printmat(noise_matrix(:,:,1), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
+printmat(noise_matrix(:,:,2), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
+printmat(noise_matrix(:,:,3), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
+printmat(noise_matrix(:,:,4), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
