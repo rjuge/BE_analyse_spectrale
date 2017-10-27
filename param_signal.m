@@ -33,7 +33,7 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % différentes valeurs de p
 %
 
-% Plot several levinson with different p values
+% % Plot several levinson with different p values
 % p_arr_lev = [2,3,4,6,10,20];
 % for j = 1:length(p_arr_lev)
 %     for i= 1:n
@@ -74,7 +74,7 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % Voir méthodes de choix de p (vers page 335)
 
 
-% Plot 4 signals with the three differents methods
+% % Plot 4 signals with the three differents methods
 % p = 15;
 % for i =1:n
 %     figure(i);
@@ -89,7 +89,7 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % end
 
 
-% Plot 4 signals with the three differents methods and p different for each
+% % Plot 4 signals with the three differents methods and p different for each
 % method
 % p_levinson = 4;
 % p_burg = 4;
@@ -107,15 +107,24 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % end
 
 % Plot 4 signals with the three differents methods with the max frequency
-% p = 15;
-% for i =1:n
-%     figure(i);
-%     subplot(3,1,1);
-%     [aa1, sigma1, ref1, ff1, mydsp1] = mylevinsondurbin(data_Demo_Stft(:,i)', p, freq_Sampling);
-%     hold on
-%     subplot(3,1,2);
-%     [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p, freq_Sampling);
-%     hold on
-%     subplot(3,1,3);
-%     [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p, freq_Sampling);
-% end
+p = 15;
+for i =1:n
+    figure(i);
+    subplot(3,1,1);
+    [aa1, sigma1, ref1, ff1, mydsp1] = mylevinsondurbin(data_Demo_Stft(:,i)', p, freq_Sampling);
+        % Prendre que la partie positive de la DSP puis faire de même pour
+        % les freq et on prend alors le maximum
+    len = length(mydsp1);
+    pos_dsp1 = mydsp1(ceil(len/2):len);
+    pos_ff1 = ff1(ceil(len/2):len);
+    [max_dsp1, ind1] = max(pos_dsp1);
+    format1 = 'f_{max} =  %d';
+    str = sprintf(format1,ff1(ceil(len/2) + ind1));
+    vline(ff1(ceil(len/2) + ind1),'r',str)
+    hold on
+    subplot(3,1,2);
+    [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p, freq_Sampling);
+    hold on
+    subplot(3,1,3);
+    [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p, freq_Sampling);
+end
