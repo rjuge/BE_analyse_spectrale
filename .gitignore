@@ -3,3 +3,6 @@
 config.m
 *.wav
 *.asv
+*.jpg
+*.png
+*.PNG
