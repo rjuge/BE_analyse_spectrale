@@ -87,9 +87,12 @@ abs_FFT_Value = [transpose(abs_FFT_Value1) transpose(abs_FFT_Value2) transpose(a
 
 figure(5)
 title('Max. spectrum amplitude and frequency over time')
-plot3(1:n,fMaxs,abs_FFT_Value,'.')
-xlabel('Signal index');
-ylabel('Max freq (Hz)');
-zlabel('Max amp (dB)');
-view(-50,50)
-grid on
+
+for i = 1 : 3
+    plot3(1:n,fMaxs(:,i),abs_FFT_Value(:,i),'.');hold on
+    xlabel('Signal index');
+    ylabel('Max freq (Hz)');
+    zlabel('Max amp (dB)');
+    view(-10,10)
+    grid on
+end
