@@ -24,8 +24,7 @@ data_Demo_Time_Axis = time_Sampling*([1:data_Length]-1)';
 [abs_FFT,abs_Axis]=FFTR(data_Demo, time_Sampling);
 % max freq values
 [abs_FFT_Value,abs_FFT_Index] = max(abs_FFT);
-
-fMaxs = abs_Axis(abs_FFT_Index)';
+f_max = abs_Axis(abs_FFT_Index)';
 
 if n<5
 %plot raw signals
@@ -54,8 +53,8 @@ end
 figure(3)
 title('Max. spectrum amplitude and frequency over time')
 subplot(2,1,1)
-stairs(fMaxs)
-xlabel('Sig. index');
+stairs(f_max)
+xlabel('Signal index');
 ylabel('Max. amp. (dB)');
 subplot(2,1,2)
 stairs(abs_FFT_Value)
@@ -64,14 +63,14 @@ xlabel('Signal index');
 
 figure(4);clf
 title('Max. spectrum amplitude vs frequency')
-plot(fMaxs,abs_FFT_Value,'.')
+plot(f_max,abs_FFT_Value,'.')
 xlabel('Max. freq. (Hz)');
 ylabel('Max. amp. (dB)');
 grid on
 
 figure(5)
 title('Max. spectrum amplitude and frequency over time')
-plot3(1:n,fMaxs,abs_FFT_Value,'.')
+plot3(1:n,f_max,abs_FFT_Value,'.')
 xlabel('Signal index');
 ylabel('Max freq (Hz)');
 zlabel('Max amp (dB)');

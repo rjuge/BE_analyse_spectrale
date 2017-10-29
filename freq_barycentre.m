@@ -26,27 +26,26 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 den = sum(amp_square,1);
 f_bar = amp_square.'*abs_Axis./den.';
 
-%%variance pondï¿½rï¿½e de f autour de f
+%%variance pondérée de f autour de f
 % vecteur proche f_approx
 
 %f_mod le reste de la div euclidienne de fbar par la taille d'un intervalle
-f_mod = (f_bar - mod(f_bar,1/4096))
+f_mod = (f_bar - mod(f_bar,1/4096));
 
     if f_mod >0.5/4096 % si c'est supï¿½rieur ï¿½ la moitiï¿½ d'un intervalle arrondi au d        f_approx = f_bar - mod(f_bar,1/4096)+1/4096
     else % sinon arrondi en dessous
-        f_approx = f_bar -mod(f_bar,1/4096)
+        f_approx = f_bar -mod(f_bar,1/4096);
     end
 
 % on rï¿½cupï¿½re le vecteur des indi
-f_bar_ind= f_approx/(1/4096)
+f_bar_ind= f_approx/(1/4096);
 
 % on a chaque indice correspondant ï¿½ la frï¿½quence barycentrique pour cha% signal, on en dï¿½duit un vecteur de variance ï¿½ 4 composan
 for i = 1:4
    
-    var_f(i) = sum((abs_FFT(:,i)-abs_FFT(f_bar_ind(i)).^2))/length(abs_Axis)
+    var_f(i) = sum((abs_FFT(:,i)-abs_FFT(f_bar_ind(i)).^2))/length(abs_Axis);
 
 end 
-
 
 
 h1 = figure(1);clf
@@ -59,6 +58,3 @@ for i = 1:n
     xlabel('Freq. (Hz)');ylabel('Amp. (dB)')
     ylabel(['Freq. (Hz) [f_{bar} = ',num2str(f_bar(i)),' Hz]'])
 end
-
-
-

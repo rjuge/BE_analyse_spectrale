@@ -20,13 +20,15 @@ scatter(f_max_raw,f_max_stft);
 xlabel 'freq max fft (Hz)';
 ylabel 'freq max stft (Hz)';
 
-K = 3;
+% PCA
 X = cat(2,f_max_raw', f_max_stft', fmax_pb, fmax_pw, f_bar_abs', f_bar_sq');
 [coeff,score,latent] = pca(X);
-mapcaplot(X)
-%%
+
+
 % Kmeans
+K = 3;
 opts = statset('Display','final');
+X = cat(2,f_max_raw', f_bar_abs');
 [idx,C] = kmeans(X,K,'Replicates',5,'Options',opts);
 
 figure;
