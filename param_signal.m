@@ -18,19 +18,19 @@ data_Demo_Stft = data_Demo(1:f_Subsampling:end,:);
 data_Length = length(data_Demo_Stft);
 data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 
-% Choses à faire
-% - Avec les mêmes signaux et pour chaque méthode, faire des plots avec
-% différentes valeurs de p
-% - Avec le même signal et même p (sufisammment grand il faudrait du coup), faire le triple plot (pas de superposé finalement)
-% + faire la même chose mais en faisant apparaître la freq max
-% - Faire comparaison des bruits pour chaque méthode et avec des p
-% différents
+% Choses ? faire
+% - Avec les m?mes signaux et pour chaque m?thode, faire des plots avec
+% diff?rentes valeurs de p
+% - Avec le m?me signal et m?me p (sufisammment grand il faudrait du coup), faire le triple plot (pas de superpos? finalement)
+% + faire la m?me chose mais en faisant appara?tre la freq max
+% - Faire comparaison des bruits pour chaque m?thode et avec des p
+% diff?rents
 
 % ------------------------------------------------------------------------
 
 % 
-% Avec les mêmes signaux et pour chaque méthode, faire des plots avec
-% différentes valeurs de p
+% Avec les m?mes signaux et pour chaque m?thode, faire des plots avec
+% diff?rentes valeurs de p
 %
 
 % % Plot several levinson with different p values
@@ -67,11 +67,11 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % ---------------------------------------------------------------------
 
 %
-% Avec le même signal et même p (sufisammment grand il faudrait du coup), faire le triple plot (pas de superposé finalement)
-% + faire la même chose mais en faisant apparaître la freq max
+% Avec le m?me signal et m?me p (sufisammment grand il faudrait du coup), faire le triple plot (pas de superpos? finalement)
+% + faire la m?me chose mais en faisant appara?tre la freq max
 %
 
-% Voir méthodes de choix de p (vers page 335)
+% Voir m?thodes de choix de p (vers page 335)
 
 
 % % Plot 4 signals with the three differents methods
@@ -142,25 +142,26 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 % ----------------------------------------------------------------------
 
 %
-% Faire comparaison des bruits pour chaque méthode et avec des p
-% différents
+% Faire comparaison des bruits pour chaque m?thode et avec des p
+% diff?rents
 %
 
-p_arr = [2,4,8,16,32,64,128];
+p_arr = [2,4,8,16];
+% p_arr = [2,4,8,16,32,64,128];
 noise_matrix = zeros(length(p_arr), 3,n);
 for j = 1:length(p_arr)
     for i =1:n
         figure(i);
         subplot(3,1,1);
-        [aa1, sigma1, ref1, ff1, mydsp1] = mylevinsondurbin(data_Demo_Stft(:,i)', p_levinson, freq_Sampling);
+        [aa1, sigma1, ref1, ff1, mydsp1] = mylevinsondurbin(data_Demo_Stft(:,i)', p_arr(j), freq_Sampling);
         noise_matrix(j,1,i) = sigma1;
         hold on
         subplot(3,1,2);
-        [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p_burg, freq_Sampling);
+        [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p_arr(j), freq_Sampling);
         noise_matrix(j,2,i) = sigma2;
         hold on
         subplot(3,1,3);
-        [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p_marple, freq_Sampling);
+        [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p_arr(j), freq_Sampling);
         noise_matrix(j,3,i) = sigma3;
     end
 end
@@ -169,3 +170,8 @@ printmat(noise_matrix(:,:,1), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev B
 printmat(noise_matrix(:,:,2), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
 printmat(noise_matrix(:,:,3), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
 printmat(noise_matrix(:,:,4), 'Matrice des bruits', '2 4 8 16 32 64 128', 'Lev Burg Marple' )
+
+% Utiliser les méthodes d'obtention des paramètres AR avec tous les signaux pour avoir la possibilite de determiner ce qui va se passer par la suite
+% Faire une boucle qui va passer les 1448 signaux 
+
+

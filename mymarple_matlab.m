@@ -258,7 +258,7 @@ end;
 fprintf(1, '%d ',npp);
 aa = aa(:).';
 
-sigma2 = ea;
+sigma2 = ea * 0.0001217;
 
 
 %%% densit\'e spectrale de puissance
@@ -270,6 +270,7 @@ interm3=interm2'*ff;
 interm=1.+aa(2:npp+1)*exp(interm3);
 mydsp = sigma2./(interm.*conj(interm));
 
+
 %figure(1);
 %clf;
 grid on;
@@ -280,4 +281,3 @@ xlabel('frequency (in Hz)');
 ylabel('magnitude');
 hold off;
 drawnow;
-
