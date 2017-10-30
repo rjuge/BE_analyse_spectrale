@@ -22,7 +22,8 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 %FFTR of the raw signals
 [abs_FFT,abs_Axis]=FFTR(data_Demo);
 
-%frequence barycentrique, moyenne pond�r�amp_square = abs_FFT.^2;
+%frequence barycentrique, moyenne pond�r�
+amp_square = abs_FFT.^2;
 den = sum(amp_square,1);
 f_bar = amp_square.'*abs_Axis./den.';
 
@@ -32,7 +33,8 @@ f_bar = amp_square.'*abs_Axis./den.';
 %f_mod le reste de la div euclidienne de fbar par la taille d'un intervalle
 f_mod = (f_bar - mod(f_bar,1/4096));
 
-    if f_mod >0.5/4096 % si c'est sup�rieur � la moiti� d'un intervalle arrondi au d        f_approx = f_bar - mod(f_bar,1/4096)+1/4096
+    if f_mod >0.5/4096 % si c'est sup�rieur � la moiti� d'un intervalle arrondi au d        
+        f_approx = f_bar - mod(f_bar,1/4096)+1/4096
     else % sinon arrondi en dessous
         f_approx = f_bar -mod(f_bar,1/4096);
     end
