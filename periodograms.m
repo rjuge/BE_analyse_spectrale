@@ -10,7 +10,8 @@ n=1; % number of signals
 if n==1448
 data_Demo = data_Mat;
 else
-index_Data_Demo = randi(1448,[1,n]); %choose randomly n signals
+%index_Data_Demo = randi(1448,[1,n]); %choose randomly n signals
+index_Data_Demo = 700;
 data_Demo = data_Mat(:,index_Data_Demo);
 end
 data_Length = length(data_Demo);
@@ -28,13 +29,13 @@ if n==1
 %plot FFTRs of raw signals
 h1 = figure(1);
 for i = 1:n
-    subplot(4,1,i)
+    subplot(3,1,i)
     plot(abs_Axis,20*log10(abs_FFT(:,i)))
     title('FFT')
     hold on
     plot(abs_Axis(abs_FFT_Index1,i),20*log10(abs_FFT_Value1),'or','MarkerSize',10);
     xlabel({['Freq. (Hz) ;'], ['f_{max} = ',num2str(f_max1),' Hz']},'FontSize',8);
-    ylabel('Power/Frequency' ,'FontSize',8);
+    ylabel('dB' ,'FontSize',8);
 end
 end
 
@@ -48,7 +49,7 @@ f_max2 = fb(abs_FFT_Index2);
 
 if n ==1
 for i = 1:n
-    subplot(4,1,i+1)
+    subplot(3,1,i+1)
     plot(fb, 10*log10(pxb))
     title('Bartlett')
     hold on
@@ -69,7 +70,7 @@ f_max3 = fw(abs_FFT_Index3);
 
 if n==1
     for i = 1:n
-        subplot(4,1,i+2)
+        subplot(3,1,i+2)
         plot(fw, 10*log10(pxw))
         title('Welch')
         hold on
