@@ -17,8 +17,12 @@ f_Subsampling = 1;
 n=4; % number of signals
 
 % Choose one specific signal and set time axis
-index_Data_Demo = randi(1448,[1,n]); %choose randomly n signals
-data_Demo = data_Mat(:,index_Data_Demo);
+if n==1448
+    data_Demo = data_Mat;
+else
+    index_Data_Demo = randi(1448,[1,n]); %choose randomly n signals
+    data_Demo = data_Mat(:,index_Data_Demo);
+end
 data_Demo_Stft = data_Demo(1:f_Subsampling:end,:);
 data_Length = length(data_Demo_Stft);
 data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
@@ -43,6 +47,7 @@ end
 
 f_red = f(nfreq/2-1:end);
 
+if n<5
 %plot STFTs
 h1 = figure(1);
 for i = 1:n
@@ -52,5 +57,5 @@ for i = 1:n
   plot(t(time_Idx(i)),f_red((end-frequency_Idx(i))),'or','MarkerSize',20) ;
   xlabel('Time');ylabel('Freq. (Hz)')
 end
-
+end
 

@@ -2,6 +2,8 @@ load('f_max_raw.mat');
 load('f_max_stft.mat');
 load('f_bar_abs.mat');
 load('f_bar_sq.mat');
+load('fmax_pb.mat');
+load('fmax_pw.mat');
 
 figure;
 scatter(f_max_raw,f_bar_abs);
@@ -18,10 +20,15 @@ scatter(f_max_raw,f_max_stft);
 xlabel 'freq max fft (Hz)';
 ylabel 'freq max stft (Hz)';
 
-K = 3;
-X = cat(2,f_max_raw',f_bar_abs');
+% PCA
+X = cat(2,f_max_raw', f_max_stft', fmax_pb, fmax_pw, f_bar_abs', f_bar_sq');
+[coeff,score,latent] = pca(X);
 
+
+% Kmeans
+K = 3;
 opts = statset('Display','final');
+X = cat(2,f_max_raw', f_bar_abs');
 [idx,C] = kmeans(X,K,'Replicates',5,'Options',opts);
 
 figure;
