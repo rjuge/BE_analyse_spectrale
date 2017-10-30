@@ -136,25 +136,26 @@ else
 end;
 ff=ff*fe;
 
-figure(1);
-clf;
+%figure(1);
+%clf;
 grid on;
 hold on;
 %semilogy(ff,mydsp,'linewidth',2);
 plot(ff,mydsp,'linewidth',2);
-xlabel('frequency (in Hz)','fontsize',20);
-ylabel('magnitude','fontsize',20);
+title('DSP obtenue avec Prony')
+xlabel('frequency (in Hz)');
+ylabel('magnitude');
 hold off;
 
-figure(2);
-clf;
-grid on;
-hold on;
-%semilogy(ff,mydsp,'linewidth',2);
-plot(ff,mydsp,'linewidth',2);
-xlabel('frequency (in Hz)','fontsize',20);
-ylabel('magnitude','fontsize',20);
-xlim([400 506]);
-hold off;
+% figure(2);
+% clf;
+% grid on;
+% hold on;
+% %semilogy(ff,mydsp,'linewidth',2);
+% plot(ff,mydsp,'linewidth',2);
+% xlabel('frequency (in Hz)','fontsize',20);
+% ylabel('magnitude','fontsize',20);
+% xlim([400 506]);
+% hold off;
 drawnow;
 

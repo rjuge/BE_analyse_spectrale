@@ -72,23 +72,24 @@ mydsp = mydsp-min(mydsp);
 
 
 %%% figures
-figure(1);
-clf;
-grid on;
-hold on;
-plot(ff,mydsp,'linewidth',2);
-xlabel('frequency (in Hz)','fontsize',20);
-ylabel('magnitude','fontsize',20);
-xlim([400 506]);
-hold off;
+% figure(1);
+% clf;
+% grid on;
+% hold on;
+% plot(ff,mydsp,'linewidth',2);
+% xlabel('frequency (in Hz)','fontsize',20);
+% ylabel('magnitude','fontsize',20);
+% xlim([400 506]);
+% hold off;
 
-figure(2);
-clf;
+%figure(2);
+%clf;
 grid on;
 hold on;
 plot(ff,mydsp,'linewidth',2);
-xlabel('frequency (in Hz)','fontsize',20);
-ylabel('magnitude','fontsize',20);
+title('DSP obtenue avec Music')
+xlabel('frequency (in Hz)');
+ylabel('magnitude');
 hold off;
 drawnow;
 

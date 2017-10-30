@@ -30,14 +30,12 @@ for j = 1:length(p_arr)
         [ff1, mydsp1] = mypisarenko(data_Demo_Stft(:,i)', p_arr(j), freq_Sampling, 0);
         legend('2','4','8','16');
         hold on
-%         subplot(3,1,2);
-%         [aa2, sigma2, kk2, ff2, mydsp2] = myburg(data_Demo_Stft(:,i), p_arr(j), freq_Sampling);
-%         legend('2','4','8','16');
-%         noise_matrix(j,2,i) = sigma2;
-%         hold on
-%         subplot(3,1,3);
-%         [aa3, sigma3, kk3, ff3, mydsp3] = mymarple_matlab(data_Demo_Stft(:,i), p_arr(j), freq_Sampling);
-%         legend('2','4','8','16');
-%         noise_matrix(j,3,i) = sigma3;
+        subplot(3,1,2);
+        [aa2, ff2, mydsp2] = myprony_matlab(data_Demo_Stft(:,i)', p_arr(j), 10, freq_Sampling,0);
+        legend('2','4','8','16');
+        hold on
+        subplot(3,1,3);
+        [ff3, mydsp3] = mymusic_matlab(data_Demo_Stft(:,i)', p_arr(j), p_arr(j) + 20, freq_Sampling);
+        legend('2','4','8','16');
     end
 end
