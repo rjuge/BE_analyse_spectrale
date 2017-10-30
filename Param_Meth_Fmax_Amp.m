@@ -56,6 +56,7 @@ for i = 1:data_Length
 end
 
 figure(1);
+title('Méthode de Levinson Durbin');
 subplot(2,1,1);
 plot(f_max1);
 xlabel('Signal');ylabel('Freq. max');
@@ -64,6 +65,7 @@ plot(amp1);
 xlabel('Signal');ylabel('Amp. en freq max');
 
 figure(2);
+title('Méthode de Burg');
 subplot(2,1,1);
 plot(f_max2);
 xlabel('Signal');ylabel('Freq. max');
@@ -72,6 +74,7 @@ plot(amp2);
 xlabel('Signal');ylabel('Amp. en freq max');
 
 figure(3);
+title('Méthode de Marple');
 subplot(2,1,1);
 plot(f_max3);
 xlabel('Signal');ylabel('Freq. max');
@@ -80,7 +83,17 @@ plot(amp3);
 xlabel('Signal');ylabel('Amp. en freq max');
 
 figure(4);
-scatter(f_max1, amp1);
+title('Méthode de Levinson Durbin');
+scatter(f_max1(:,1), amp1(:,1));
+xlabel('Freq. max (Hz)');ylabel('Amp. en freq max');
+figure(5);
+title('Méthode de Burg');
+scatter(f_max2(:,1), amp2(:,1));
+xlabel('Freq. max (Hz)');ylabel('Amp. en freq max');
+figure(6);
+title('Méthode de Marple');
+scatter(f_max1(:,1), amp1(:,1));
+xlabel('Freq. max (Hz)');ylabel('Amp. en freq max');
 
 % Plot the continuous noise (f=0)
 % p = 4;
