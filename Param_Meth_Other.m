@@ -20,22 +20,42 @@ data_Mat_Time_Axis = time_Sampling*([1:data_Length]-1)';
 
 % we plot n signals with different p values and with each AR method
 
-p_arr = [2,4,8,16];
+p_arr = [15,40];
 % p_arr = [2,4,8,16,32,64,128];
 noise_matrix = zeros(length(p_arr), 3,n);
 for j = 1:length(p_arr)
     for i =1:n
         figure(i);
         subplot(3,1,1);
-        [ff1, mydsp1] = mypisarenko(data_Demo_Stft(:,i)', p_arr(j), freq_Sampling, 0);
-        legend('2','4','8','16');
+        [ff1, mydsp1] = mypisarenko(data_Demo_Stft(:,i)',  p_arr(j), freq_Sampling, 0);
+        legend('15','40');
         hold on
         subplot(3,1,2);
-        [aa2, ff2, mydsp2] = myprony_matlab(data_Demo_Stft(:,i)', p_arr(j), 10, freq_Sampling,0);
-        legend('2','4','8','16');
+        [aa2, ff2, mydsp2] = myprony_matlab(data_Demo_Stft(:,i)', p_arr(j), 15, freq_Sampling,0);
+        legend('15','40');
         hold on
         subplot(3,1,3);
-        [ff3, mydsp3] = mymusic_matlab(data_Demo_Stft(:,i)', p_arr(j), p_arr(j) + 20, freq_Sampling);
-        legend('2','4','8','16');
+        [ff3, mydsp3] = mymusic_matlab(data_Demo_Stft(:,i)', p_arr(j), 100, freq_Sampling);
+        legend('15','40');
+    end
+end
+
+p_arr = [2];
+% p_arr = [2,4,8,16,32,64,128];
+noise_matrix = zeros(length(p_arr), 3,n);
+for j = 1:length(p_arr)
+    for i =1:n
+        figure(i+4);
+        subplot(3,1,1);
+        [ff1, mydsp1] = mypisarenko(data_Demo_Stft(:,i)',  p_arr(j), freq_Sampling, 0);
+        legend('2');
+        hold on
+        subplot(3,1,2);
+        [aa2, ff2, mydsp2] = myprony_matlab(data_Demo_Stft(:,i)', p_arr(j), 15, freq_Sampling,0);
+        legend('2');
+        hold on
+        subplot(3,1,3);
+        [ff3, mydsp3] = mymusic_matlab(data_Demo_Stft(:,i)', p_arr(j), 100, freq_Sampling);
+        legend('2');
     end
 end
